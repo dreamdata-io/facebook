@@ -261,7 +261,7 @@ func (app *App) SessionFromSignedRequest(signedRequest string) (session *Session
 
 	var id, token string
 
-	res.DecodeField("user_id", &id) // it's ok without user id.
+	_ = res.DecodeField("user_id", &id) // it's ok without user id.
 	err = res.DecodeField("oauth_token", &token)
 
 	if err == nil {

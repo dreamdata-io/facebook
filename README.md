@@ -1,20 +1,15 @@
 # A Facebook Graph API SDK In Golang
 
-[![Build Status](https://github.com/huandu/facebook/workflows/Go/badge.svg)](https://github.com/huandu/facebook/actions)
-[![GoDoc](https://godoc.org/github.com/huandu/facebook?status.svg)](https://pkg.go.dev/github.com/huandu/facebook/v2)
-
 This is a Go package that fully supports the [Facebook Graph API](https://developers.facebook.com/docs/graph-api/) with file upload, batch request and marketing API. It can be used in Google App Engine.
 
-API documentation can be found on [godoc](https://pkg.go.dev/github.com/huandu/facebook/v2).
+API documentation can be found on [godoc](https://pkg.go.dev/github.com/dreamdata-io/facebook).
 
 Feel free to create an issue or send me a pull request if you have any "how-to" question or bug or suggestion when using this package. I'll try my best to reply to it.
 
 ## Install
-
-If `go mod` is enabled, install this package with `go get github.com/huandu/facebook/v2`. If not, call `go get -u github.com/huandu/facebook` to get the latest master branch version.
-
-Note that, since go1.14, [incompatible versions are omitted](https://golang.org/doc/go1.14#incompatible-versions) unless specified explicitly. Therefore, it's highly recommended to upgrade the import path to `github.com/huandu/facebook/v2` when possible to avoid any potential dependency error.
-
+```shell
+`go get github.com/dreamdata-io/facebook`
+```
 ## Usage
 
 ### Quick start
@@ -26,7 +21,7 @@ package main
 
 import (
     "fmt"
-    fb "github.com/huandu/facebook/v2"
+    fb "github.com/dreamdata-io/facebook"
 )
 
 func main() {
@@ -376,7 +371,7 @@ The `golang.org/x/oauth2` package can handle the Facebook OAuth2 authentication 
 import (
     "golang.org/x/oauth2"
     oauth2fb "golang.org/x/oauth2/facebook"
-    fb "github.com/huandu/facebook/v2"
+    fb "github.com/dreamdata-io/facebook"
 )
 
 // Get Facebook access token.

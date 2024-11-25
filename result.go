@@ -452,7 +452,7 @@ func (res Result) DebugInfo() *DebugInfo {
 	}
 
 	debugInfo := &DebugInfo{}
-	info.DecodeField("messages", &debugInfo.Messages)
+	_ = info.DecodeField("messages", &debugInfo.Messages)
 
 	if proto, ok := info[debugProtoKey]; ok {
 		if v, ok := proto.(string); ok {

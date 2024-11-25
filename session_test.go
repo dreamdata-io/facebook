@@ -352,7 +352,7 @@ func TestSessionWithCustomBaseUrl(t *testing.T) {
 	testMux.HandleFunc("/v3.0/me", func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Add("Content-Type", "application/json")
 		w.WriteHeader(http.StatusOK)
-		w.Write([]byte(`{"name": "some-user"}`))
+		_, _ = w.Write([]byte(`{"name": "some-user"}`))
 		numCalls++
 	})
 

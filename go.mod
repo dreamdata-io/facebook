@@ -1,3 +1,3 @@
-module github.com/huandu/facebook/v2
+module github.com/dreamdata-io/facebook
 
-go 1.13
+go 1.23

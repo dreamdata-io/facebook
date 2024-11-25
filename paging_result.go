@@ -124,7 +124,7 @@ func (pr *PagingResult) navigate(url *string) (noMore bool, err error) {
 		buf := &bytes.Buffer{}
 		buf.WriteString(*url)
 		buf.WriteRune('&')
-		params.Encode(buf)
+		_, _ = params.Encode(buf)
 
 		pagingURL = buf.String()
 	}

@@ -252,7 +252,7 @@ func (session *Session) Inspect() (result Result, err error) {
 	}
 
 	var data Result
-	result.DecodeField("data", &data)
+	_ = result.DecodeField("data", &data)
 	result = data
 	err = result.Err()
 	return
@@ -631,7 +631,7 @@ func (session *Session) getURL(name, path string, params Params) string {
 
 	if params != nil {
 		buf.WriteRune('?')
-		params.Encode(buf)
+		_, _ = params.Encode(buf)
 	}
 
 	return buf.String()
@@ -645,7 +645,7 @@ func (session *Session) addDebugInfo(res Result, response *http.Response) Result
 	debugInfo := make(map[string]interface{})
 
 	// save debug information in result directly.
-	res.DecodeField(debugInfoKey, &debugInfo)
+	_ = res.DecodeField(debugInfoKey, &debugInfo)
 	debugInfo[debugProtoKey] = response.Proto
 	debugInfo[debugHeaderKey] = response.Header
 
@@ -662,23 +662,23 @@ func (session *Session) addUsageInfo(res Result, response *http.Response) Result
 	header := response.Header
 
 	if usage := header.Get("X-App-Usage"); usage != "" {
-		json.Unmarshal([]byte(usage), &usageInfo.App)
+		_ = json.Unmarshal([]byte(usage), &usageInfo.App)
 	}
 
 	if usage := header.Get("X-Page-Usage"); usage != "" {
-		json.Unmarshal([]byte(usage), &usageInfo.Page)
+		_ = json.Unmarshal([]byte(usage), &usageInfo.Page)
 	}
 
 	if usage := header.Get("X-Ad-Account-Usage"); usage != "" {
-		json.Unmarshal([]byte(usage), &usageInfo.AdAccount)
+		_ = json.Unmarshal([]byte(usage), &usageInfo.AdAccount)
 	}
 
 	if usage := header.Get("X-Business-Use-Case-Usage"); usage != "" {
-		json.Unmarshal([]byte(usage), &usageInfo.BusinessUseCase)
+		_ = json.Unmarshal([]byte(usage), &usageInfo.BusinessUseCase)
 	}
 
 	if usage := header.Get("X-Fb-Ads-Insights-Throttle"); usage != "" {
-		json.Unmarshal([]byte(usage), &usageInfo.AdsInsights)
+		_ = json.Unmarshal([]byte(usage), &usageInfo.AdsInsights)
 	}
 
 	res[usageInfoKey] = &usageInfo

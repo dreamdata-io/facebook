@@ -165,9 +165,9 @@ func isEmptyValue(v reflect.Value) bool {
 		return v.Float() == 0
 	case reflect.Interface, reflect.Ptr:
 		return v.IsNil()
+	default:
+		return false
 	}
-
-	return false
 }
 
 // Encode encodes params to query string.
@@ -209,14 +209,14 @@ func (params Params) encodeFormURLEncoded(writer io.Writer) (mime string, err er
 		}
 
 		if written {
-			io.WriteString(writer, "&")
+			_, _ = io.WriteString(writer, "&")
 		}
 
-		io.WriteString(writer, url.QueryEscape(k))
-		io.WriteString(writer, "=")
+		_, _ = io.WriteString(writer, url.QueryEscape(k))
+		_, _ = io.WriteString(writer, "=")
 
 		if reflect.TypeOf(v).Kind() == reflect.String {
-			io.WriteString(writer, url.QueryEscape(reflect.ValueOf(v).String()))
+			_, _ = io.WriteString(writer, url.QueryEscape(reflect.ValueOf(v).String()))
 		} else {
 			jsonStr, err = json.Marshal(v)
 
@@ -224,7 +224,7 @@ func (params Params) encodeFormURLEncoded(writer io.Writer) (mime string, err er
 				return
 			}
 
-			io.WriteString(writer, url.QueryEscape(string(jsonStr)))
+			_, _ = io.WriteString(writer, url.QueryEscape(string(jsonStr)))
 		}
 
 		written = true
@@ -282,7 +282,7 @@ func (params Params) encodeMultipartForm(writer io.Writer) (mime string, err err
 				return
 			}
 
-			defer file.Close() 
+			defer file.Close()
 
 			_, err = io.Copy(dst, file)
 
@@ -297,7 +297,7 @@ func (params Params) encodeMultipartForm(writer io.Writer) (mime string, err err
 			dst, err = w.CreateFormField(k)
 
 			if reflect.TypeOf(v).Kind() == reflect.String {
-				io.WriteString(dst, reflect.ValueOf(v).String())
+				_, _ = io.WriteString(dst, reflect.ValueOf(v).String())
 			} else {
 				jsonStr, err = json.Marshal(v)
 
