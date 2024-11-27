@@ -14,8 +14,8 @@ type AuthClient interface {
 	AuthCodeURL(ctx context.Context, state string, options ...oauth2.AuthCodeOption) string
 	ExchangeOAuth2Code(ctx context.Context, oauth2Code string) (*oauth2.Token, error)
 	AccessToken(ctx context.Context, refreshToken string) (*oauth2.Token, error)
-	// Revoke revokes the token, this method requires authorization
-	Revoke(ctx context.Context, refreshToken string) error
+	// RevokeRefreshToken revokes the token, this method requires authorization
+	RevokeRefreshToken(ctx context.Context, refreshToken string) error
 }
 
 type AuthOption func(*oauth2.Config)
@@ -73,7 +73,7 @@ func (c *Client) AccessToken(ctx context.Context, refreshToken string) (*oauth2.
 	return t, nil
 }
 
-func (c *Client) Revoke(_ context.Context, refreshToken string) error {
+func (c *Client) RevokeRefreshToken(_ context.Context, refreshToken string) error {
 	params := map[string]string{
 		"client_id":     c.oauth2Config.ClientID,
 		"client_secret": c.oauth2Config.ClientSecret,
