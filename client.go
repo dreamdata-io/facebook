@@ -9,9 +9,10 @@ import (
 
 type IClient interface {
 	Auth(context.Context, *oauth2.Token, ...AuthOption) IClient
+	Session() *internal.Session
 	AuthClient
 	ConversionsAPI
-	Session() *internal.Session
+	MeAPI
 }
 
 type Client struct {

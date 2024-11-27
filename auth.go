@@ -2,7 +2,6 @@ package facebook
 
 import (
 	"context"
-	"github.com/dreamdata-io/facebook/internal"
 	"golang.org/x/oauth2"
 )
 
@@ -13,12 +12,6 @@ type AuthClient interface {
 	AuthCodeURL(ctx context.Context, state string, options ...oauth2.AuthCodeOption) string
 	ExchangeOAuth2Code(ctx context.Context, oauth2Code string) (*oauth2.Token, error)
 	AccessToken(ctx context.Context, refreshToken string) (*oauth2.Token, error)
-	Me(ctx context.Context) (User, error)
-}
-
-type User struct {
-	ID    string `json:"id"`
-	Email string `json:"email"`
 }
 
 type AuthOption func(*oauth2.Config)
@@ -74,20 +67,4 @@ func (c *Client) AccessToken(ctx context.Context, refreshToken string) (*oauth2.
 	}
 
 	return t, nil
-}
-
-func (c *Client) Me(_ context.Context) (User, error) {
-	fields := map[string]string{
-		"fields": "id,email",
-	}
-
-	res, err := c.session.Get("/me", internal.MakeParams(fields))
-	if err != nil {
-		return User{}, err
-	}
-
-	return User{
-		ID:    res.GetField("id").(string),
-		Email: res.GetField("email").(string),
-	}, nil
 }
