@@ -5,7 +5,7 @@
 // Licensed under the MIT license
 // https://github.com/huandu/facebook/blob/master/LICENSE
 
-package facebook
+package internal
 
 // Constants for test cases.
 const (

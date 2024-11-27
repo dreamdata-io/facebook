@@ -1,19 +1,37 @@
-# A Facebook Graph API SDK In Golang
-
+# Facebook 
 This is a Go package that fully supports the [Facebook Graph API](https://developers.facebook.com/docs/graph-api/) with file upload, batch request and marketing API. It can be used in Google App Engine.
-
 API documentation can be found on [godoc](https://pkg.go.dev/github.com/dreamdata-io/facebook).
-
-Feel free to create an issue or send me a pull request if you have any "how-to" question or bug or suggestion when using this package. I'll try my best to reply to it.
 
 ## Install
 ```shell
 `go get github.com/dreamdata-io/facebook`
 ```
 ## Usage
+### Authenticated request
+```go
+package main
 
-### Quick start
+import (
+	"context"
+	"fmt"
+	"github.com/dreamdata-io/facebook"
+	"golang.org/x/oauth2"
+)
 
+func main() {
+	ctx := context.Background()
+	oauth2Token := &oauth2.Token{}
+	client := facebook.New(facebook.Config{})
+	user, err := client.Auth(ctx, oauth2Token).Me(ctx)
+	if err != nil {
+        panic(err)
+    }
+	
+    fmt.Println(user)
+}
+```
+
+### Development
 Here is a sample that reads my Facebook first name by uid.
 
 ```go
