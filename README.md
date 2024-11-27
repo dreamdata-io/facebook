@@ -4,7 +4,7 @@ API documentation can be found on [godoc](https://pkg.go.dev/github.com/dreamdat
 
 ## Install
 ```shell
-`go get github.com/dreamdata-io/facebook`
+go get github.com/dreamdata-io/facebook
 ```
 ## Usage
 ### Authenticated request
