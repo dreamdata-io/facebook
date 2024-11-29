@@ -17,7 +17,7 @@ func TestBinaryParamsEncode(t *testing.T) {
 
 	buf := &bytes.Buffer{}
 	params := Params{}
-	params["attachment"] = FileAlias("image.jpg", "LICENSE")
+	params["attachment"] = FileAlias("image.jpg", "../LICENSE")
 
 	contentTypeImage := "Content-Type: image/jpeg"
 	if mime, err := params.Encode(buf); err != nil || !strings.Contains(mime, mimeFormData) || !strings.Contains(buf.String(), contentTypeImage) {
@@ -27,7 +27,7 @@ func TestBinaryParamsEncode(t *testing.T) {
 	// Fallback for unknown content types
 	// should be application/octet-stream
 	buf.Reset()
-	params = Params{"attachment": FileAlias("image.unknown", "LICENSE")}
+	params = Params{"attachment": FileAlias("image.unknown", "../LICENSE")}
 	contentTypeOctet := "Content-Type: application/octet-stream"
 	if mime, err := params.Encode(buf); err != nil || !strings.Contains(mime, mimeFormData) || !strings.Contains(buf.String(), contentTypeOctet) {
 		t.Fatalf("wrong binary params encode result. expected content type is '%v'. actual is '%v'. [e:%v] [mime:%v]", contentTypeOctet, buf.String(), err, mime)
