@@ -13,6 +13,7 @@ type IClient interface {
 	AuthClient
 	ConversionsAPI
 	MeAPI
+	AudiencesAPI
 }
 
 type Client struct {
