@@ -8,6 +8,7 @@ import (
 type Result = internal.Result
 type Method = internal.Method
 type Params = internal.Params
+type Error = internal.Error
 
 func FieldsParams(fields ...string) Params {
 	return internal.MakeParams(map[string]string{
