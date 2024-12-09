@@ -11,6 +11,9 @@ type AudiencesAPI interface {
 	Audience(ctx context.Context, audienceID string, params Params) (Result, error)
 	CustomAudiences(ctx context.Context, adAccountID string, params Params) (Result, error)
 	CreateAudience(ctx context.Context, adAccountID string, params Params) (Result, error)
+	AddUsers(ctx context.Context, audienceID string, payload AddUserPayload, params Params) (Result, error)
+	ReplaceUsers(ctx context.Context, audienceID string, payload AddUserPayload, params Params) (Result, error)
+	Sessions(ctx context.Context, audienceID string, sessionID string) (Result, error)
 }
 
 // Audience calls the Facebook Graph API with GET at /{audience_id} to get an audience.
@@ -84,21 +87,8 @@ func (c *Client) AddUsers(ctx context.Context, audienceID string, payload AddUse
 	return c.session.Post(fmt.Sprintf("/%s/users", audienceID), params)
 }
 
+// ReplaceUsers calls the Facebook API with POST at /{audience_id}/usersreplace to replace users in an audience.
 func (c *Client) ReplaceUsers(ctx context.Context, audienceID string, payload AddUserPayload, params Params) (Result, error) {
-	res, err := c.Audience(ctx, audienceID, FieldsParams("operation_status"))
-	if err != nil {
-		return nil, err
-	}
-
-	var opStatus int
-	err = res.DecodeField("operation_status", &opStatus)
-	if err != nil {
-		return nil, err
-	}
-	if opStatus != 200 {
-		return nil, fmt.Errorf("audience %s is not ready for replacement", audienceID)
-	}
-
 	if params == nil {
 		params = make(Params)
 	}
@@ -106,7 +96,7 @@ func (c *Client) ReplaceUsers(ctx context.Context, audienceID string, payload Ad
 	return c.session.Post(fmt.Sprintf("/%s/usersreplace", audienceID), params)
 }
 
-// Sessions calls the Facebook API with GET at /{audience_id}/sessions to get information on sessions.
+// Sessions calls the Facebook API with GET at /{audience_id}/sessions to get information on audience operation sessions.
 func (c *Client) Sessions(ctx context.Context, audienceID string, sessionID string) (Result, error) {
 	return c.session.Get(fmt.Sprintf("/%s/sessions", audienceID), Params{"session_id": sessionID})
 }
