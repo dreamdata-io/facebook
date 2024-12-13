@@ -43,10 +43,10 @@ func (c *Client) CreateAudience(ctx context.Context, adAccountID string, params 
 }
 
 type AddUserSession struct {
-	SessionID         int64 `json:"session_id"`
-	BatchSeq          int   `json:"batch_seq"`
-	LastBatchFlag     bool  `json:"last_batch_flag"`
-	EstimatedNumTotal int   `json:"estimated_num_total"`
+	SessionID         int64   `json:"session_id"`
+	BatchSeq          int     `json:"batch_seq"`
+	LastBatchFlag     bool    `json:"last_batch_flag"`
+	EstimatedNumTotal float64 `json:"estimated_num_total"`
 }
 
 func (s AddUserSession) Format() map[string]any {
