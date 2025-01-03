@@ -25,8 +25,8 @@ type Error struct {
 
 // Error returns error string.
 func (e *Error) Error() string {
-	return fmt.Sprintf("facebook: %s (code: %d; error_subcode: %d, error_user_title: %s, error_user_msg: %s)",
-		e.Message, e.Code, e.ErrorSubcode, e.UserTitle, e.UserMessage)
+	return fmt.Sprintf("facebook: %s (code: %d; error_subcode: %d, error_user_title: %s, error_user_msg: %s, fbtrace_id: %s)",
+		e.Message, e.Code, e.ErrorSubcode, e.UserTitle, e.UserMessage, e.TraceID)
 }
 
 // UnmarshalError represents a json decoder error.
