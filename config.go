@@ -2,7 +2,7 @@ package facebook
 
 type (
 	Config struct {
-		Version string       `envconfig:"VERSION" default:"v21.0"`
+		Version string       `envconfig:"VERSION" default:"v22.0"`
 		OAuth2  OAuth2Config `envconfig:"OAUTH2"`
 	}
 
